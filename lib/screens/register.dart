@@ -3,8 +3,9 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:movie_mate/screens/login.dart';
 
-import 'splash.dart';
+
 
 class Register extends StatefulWidget {
   const Register({Key? key}) : super(key: key);
@@ -41,7 +42,7 @@ class _RegisterState extends State<Register> {
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
-            builder: (context) => const Splash(),
+            builder: (context) => const LoginScreen(),
           ),
           (route) => false,
         );

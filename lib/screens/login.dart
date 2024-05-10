@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, use_build_context_synchronously
+// ignore_for_file: prefer_const_constructors, use_build_context_synchronously, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
 
@@ -180,12 +180,22 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
             Center(
-              child: Text(
-                'Or',
-                style: TextStyle(
-                  fontSize: 13,
-                  color: Colors.blue,
-                ),
+              child: Column(
+                children: [
+                  Text(
+                    'Or',
+                    style: TextStyle(
+                      fontSize: 13,
+                      color: Colors.blue,
+                    ),
+                  ),
+                  Text(
+                    'Sign In Using ',
+                    style: TextStyle(
+                      fontSize: 16,
+                    ),
+                  ),
+                ],
               ),
             ),
             SizedBox(
@@ -196,20 +206,21 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  ElevatedButton(
+                  TextButton(
                     onPressed: _loginWithGoogle,
                     child: Row(
                       children: [
                         Image.asset(
-                           'android/app/src/assets/google.png',       
+                          'android/app/src/assets/google.png',
                           height: 50,
                         ),
                         SizedBox(
                           width: 10,
                         ),
                         Text(
-                          'Sign in with Google',
-                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                          'Google',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 16),
                         )
                       ],
                     ),
@@ -217,20 +228,21 @@ class _LoginScreenState extends State<LoginScreen> {
                   SizedBox(
                     height: 8,
                   ),
-                  ElevatedButton(
+                  TextButton(
                     onPressed: _loginWithFacebook,
                     child: Row(
                       children: [
                         Image.asset(
-                            'android/app/src/assets/facebook.png',       
+                          'android/app/src/assets/facebook.png',
                           height: 50,
                         ),
                         SizedBox(
                           width: 10,
                         ),
                         Text(
-                          'Sign in with Facebook',
-                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                          'Facebook',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 16),
                         ),
                       ],
                     ),
