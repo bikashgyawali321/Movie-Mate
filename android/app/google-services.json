@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1023621824474",
+    "project_id": "movie-mate-2d33d",
+    "storage_bucket": "movie-mate-2d33d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1023621824474:android:a89dbd66e9d4684b7f0ae3",
+        "android_client_info": {
+          "package_name": "com.example.movie_mate"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCxX1mEga1xP8X42Y7HbUb4QKbpsWrWlwA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
