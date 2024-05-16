@@ -3,6 +3,8 @@
 import 'package:flutter/material.dart';
 
 import '../services/firebase.dart';
+import '../widgets/appbar.dart';
+import '../widgets/password_field.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -18,6 +20,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final AuthenticationService authService = AuthenticationService();
 
   void _validate() async {
+    print(password);
     if (username == null || password == null) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -90,9 +93,9 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Login'),
-      ),
+      appBar: PreferredSize(
+          preferredSize: Size.fromHeight(kToolbarHeight),
+          child: AppBarWidget(title: 'Login')),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -135,15 +138,19 @@ class _LoginScreenState extends State<LoginScreen> {
                   SizedBox(
                     height: 10,
                   ),
-                  TextFormField(
-                    onChanged: (value) => password = value,
-                    obscureText: true,
-                    decoration: InputDecoration(
-                        labelText: 'Password',
-                        hintText: 'Enter your password',
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(21))),
-                  ),
+                  // TextFormField(
+                  //   onChanged: (value) => password = value,
+                  //   obscureText: true,
+                  //   decoration: InputDecoration(
+                  //       labelText: 'Password',
+                  //       hintText: 'Enter your password',
+                  //       border: OutlineInputBorder(
+                  //           borderRadius: BorderRadius.circular(21))),
+                  // ),
+                  PasswordField(
+                    isVisible: true,
+                    onChanged: (p) => password = p,
+                  )
                 ],
               ),
             ),
