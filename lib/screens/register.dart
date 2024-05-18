@@ -5,8 +5,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:movie_mate/screens/login.dart';
 
-
-
 class Register extends StatefulWidget {
   const Register({Key? key}) : super(key: key);
 
@@ -49,7 +47,6 @@ class _RegisterState extends State<Register> {
       }
     } catch (e) {
       print('Error registering user: $e');
-      // Handle registration error
     }
   }
 
@@ -64,34 +61,42 @@ class _RegisterState extends State<Register> {
         child: Column(
           children: [
             TextField(
-              decoration: const InputDecoration(
-                labelText: 'Full Name',
-              ),
+              decoration: InputDecoration(
+                  labelText: 'Full Name',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  )),
               onChanged: (value) {
                 _fullName = value;
               },
             ),
             TextField(
-              decoration: const InputDecoration(
-                labelText: 'Username',
-              ),
+              decoration: InputDecoration(
+                  labelText: 'Username',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  )),
               onChanged: (value) {
                 _username = value;
               },
             ),
             TextField(
-              decoration: const InputDecoration(
-                labelText: 'Email',
-              ),
+              decoration: InputDecoration(
+                  labelText: 'Email',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  )),
               keyboardType: TextInputType.emailAddress,
               onChanged: (value) {
                 _email = value;
               },
             ),
             TextField(
-              decoration: const InputDecoration(
-                labelText: 'Password',
-              ),
+              decoration: InputDecoration(
+                  labelText: 'Password',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  )),
               obscureText: true,
               onChanged: (value) {
                 _password = value;
