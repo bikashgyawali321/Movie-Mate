@@ -114,7 +114,7 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(40, 0, 0, 0),
-              child: Text('Welcome to Movie Magic, the movie hub! ',
+              child: Text('Welcome to Movie Mate, the movie hub! ',
                   style: TextStyle(
                       fontSize: 13,
                       color: Colors.yellow,
@@ -138,15 +138,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   SizedBox(
                     height: 10,
                   ),
-                  // TextFormField(
-                  //   onChanged: (value) => password = value,
-                  //   obscureText: true,
-                  //   decoration: InputDecoration(
-                  //       labelText: 'Password',
-                  //       hintText: 'Enter your password',
-                  //       border: OutlineInputBorder(
-                  //           borderRadius: BorderRadius.circular(21))),
-                  // ),
+                  
                   PasswordField(
                     isVisible: true,
                     onChanged: (p) => password = p,
