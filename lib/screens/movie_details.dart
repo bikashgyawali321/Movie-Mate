@@ -7,7 +7,6 @@ import 'package:provider/provider.dart';
 
 import '../provider/movies_providers.dart';
 import '../widgets/appbar.dart';
-import '../widgets/password_field.dart';
 
 class MovieDetailsScreen extends StatefulWidget {
   final String id;
@@ -246,14 +245,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                       ],
                     ),
                   ),
-                  PasswordField(
-                    isVisible: false,
-                    onChanged: (password) {
-                      setState(() {
-                        enteredPassword = password;
-                      });
-                    },
-                  ),
+              
                 ],
               ),
             ),
