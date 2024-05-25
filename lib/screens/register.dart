@@ -20,7 +20,7 @@ class _RegisterState extends State<Register> {
   late String _username;
   late String _email;
   late String _password;
-
+  late num _phoneNumber;
   _register() async {
     try {
       UserCredential userCredential =
@@ -34,7 +34,8 @@ class _RegisterState extends State<Register> {
           'fullName': _fullName,
           'username': _username,
           'email': _email,
-          'password': _password
+          'password': _password,
+          'phoneNumber':_phoneNumber
         });
 
         Navigator.pushAndRemoveUntil(
