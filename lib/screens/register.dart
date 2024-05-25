@@ -20,7 +20,7 @@ class _RegisterState extends State<Register> {
   late String _username;
   late String _email;
   late String _password;
-  late num _phoneNumber;
+  late String _phoneNumber;
   _register() async {
     try {
       UserCredential userCredential =
@@ -101,6 +101,16 @@ class _RegisterState extends State<Register> {
               obscureText: true,
               onChanged: (value) {
                 _password = value;
+              },
+            ),
+             TextField(
+              decoration: InputDecoration(
+                  labelText: 'Phone Number',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  )),
+              onChanged: (value) {
+                _phoneNumber = value;
               },
             ),
             const SizedBox(height: 16.0),
