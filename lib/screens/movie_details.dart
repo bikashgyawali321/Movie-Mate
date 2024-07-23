@@ -1,10 +1,6 @@
-// ignore_for_file: avoid_print
-
 import 'package:flutter/material.dart';
 import 'package:movie_mate/models/movie.dart';
-
 import 'package:provider/provider.dart';
-
 import '../provider/movies_providers.dart';
 import '../widgets/appbar.dart';
 
@@ -24,7 +20,6 @@ class MovieDetailsScreen extends StatefulWidget {
 
 class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
   Movie? _details;
-  String? enteredPassword;
 
   @override
   void initState() {
@@ -43,7 +38,6 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print('I am toggle field');
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(kToolbarHeight),
@@ -74,9 +68,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                       fit: BoxFit.fill,
                     ),
                   ),
-                  const SizedBox(
-                    height: 2,
-                  ),
+                  const SizedBox(height: 10),
                   Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(6),
@@ -95,7 +87,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                             fontStyle: FontStyle.italic,
                           ),
                         ),
-                        const SizedBox(height: 5),
+                        const SizedBox(height: 10),
                         Row(
                           children: [
                             const Text(
@@ -135,7 +127,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                             ),
                           ],
                         ),
-                        const SizedBox(height: 5),
+                        const SizedBox(height: 10),
                         Row(
                           children: [
                             const Text(
@@ -155,9 +147,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                                 fontSize: 15,
                               ),
                             ),
-                            const SizedBox(
-                              width: 17,
-                            ),
+                            const SizedBox(width: 17),
                             const Spacer(),
                             const Text(
                               'Meta Score:',
@@ -201,7 +191,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                             ),
                             const Spacer(),
                             const Text(
-                              'Released Year: ',
+                              'Released Year:',
                               style: TextStyle(
                                 color: Colors.grey,
                                 fontWeight: FontWeight.bold,
@@ -240,13 +230,55 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                                 ),
                               ),
                             ),
-                            Spacer(),
                           ],
                         ),
+                        const SizedBox(height: 10),
+                        if (detail.ratings != null &&
+                            detail.ratings!.isNotEmpty)
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text(
+                                'Ratings:',
+                                style: TextStyle(
+                                  color: Colors.grey,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                ),
+                              ),
+                              const SizedBox(height: 5),
+                              ...detail.ratings!.map((rating) {
+                                return Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 4.0),
+                                  child: Row(
+                                    children: [
+                                      Expanded(
+                                        child: Text(
+                                          rating['Source'] ?? '',
+                                          style: const TextStyle(
+                                            color: Colors.grey,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 15,
+                                          ),
+                                        ),
+                                      ),
+                                      Text(
+                                        rating['Value'] ?? '',
+                                        style: const TextStyle(
+                                          color: Colors.grey,
+                                          fontSize: 15,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              }),
+                            ],
+                          ),
                       ],
                     ),
                   ),
-              
                 ],
               ),
             ),

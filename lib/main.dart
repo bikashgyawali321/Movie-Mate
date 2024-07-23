@@ -34,8 +34,8 @@ class MyApp extends StatelessWidget {
         ),
         initialRoute: '/',
         routes: {
-          '/': (context) => const Splash(),
-          '/home': (context) => const HomeScreen(),
+          '/': (context) => const HomeScreen(),
+          // '/home': (context) => const HomeScreen(),
           '/register': (context) => const Register()
         },
         title: 'Movie Magic',
