@@ -240,6 +240,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                                 ),
                               ),
                             ),
+                            Spacer(),
                           ],
                         ),
                       ],
