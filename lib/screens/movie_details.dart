@@ -1,11 +1,11 @@
 // ignore_for_file: prefer_const_constructors, prefer_final_fields, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:movie_mate/models/movie.dart';
 import 'package:provider/provider.dart';
 import '../provider/movies_providers.dart';
 import '../widgets/appbar.dart';
-import '../widgets/rating_bar.dart';
 
 class MovieDetailsScreen extends StatefulWidget {
   final String id;
@@ -24,7 +24,7 @@ class MovieDetailsScreen extends StatefulWidget {
 class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
   Movie? _details;
 
-  num? userRatings;
+  double? userRatings;
   @override
   void initState() {
     super.initState();
@@ -278,47 +278,155 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                                   ),
                                 );
                               }),
+                              if (userRatings == null)
+                                Column(
+                                  children: [
+                                    SizedBox(
+                                      height: 40,
+                                    ),
+                                    Center(
+                                      child: Flexible(
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                              color: Colors.blueGrey,
+                                              borderRadius:
+                                                  BorderRadius.circular(18)),
+                                          child: TextButton(
+                                              onPressed: () {
+                                                showDialog(
+                                                    context: context,
+                                                    builder: ((context) {
+                                                      return AlertDialog(
+                                                          title: Text(
+                                                            'Rate ${widget.movieName}',
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: Theme.of(
+                                                                    context)
+                                                                .textTheme
+                                                                .titleLarge,
+                                                          ),
+                                                          actions: <Widget>[
+                                                            Center(
+                                                              child: Text(
+                                                                "Please leave star ratings",
+                                                                style: Theme.of(
+                                                                        context)
+                                                                    .textTheme
+                                                                    .bodyMedium,
+                                                              ),
+                                                            ),
+                                                            SizedBox(
+                                                              height: 20,
+                                                            ),
+                                                            Center(
+                                                              child: Column(
+                                                                children: [
+                                                                  RatingBar.builder(
+                                                                      initialRating:
+                                                                          0,
+                                                                      direction:
+                                                                          Axis
+                                                                              .horizontal,
+                                                                      allowHalfRating:
+                                                                          true,
+                                                                      itemCount:
+                                                                          5,
+                                                                      itemBuilder: (context, _) => Icon(
+                                                                          Icons
+                                                                              .star,
+                                                                          color: Colors
+                                                                              .amber),
+                                                                      onRatingUpdate:
+                                                                          (rating) =>
+                                                                              userRatings = rating
+                                                                      //     setState(() {
+                                                                      //   userRatings = rating;
+                                                                      // }),
+                                                                      ),
+                                                                  SizedBox(
+                                                                    height: 20,
+                                                                  ),
+                                                                  Container(
+                                                                    decoration:
+                                                                        BoxDecoration(
+                                                                      color: Colors
+                                                                          .blueGrey,
+                                                                      borderRadius:
+                                                                          BorderRadius.circular(
+                                                                              18),
+                                                                    ),
+                                                                    child: TextButton(
+                                                                        onPressed: () {
+                                                                          setState(
+                                                                              () {
+                                                                            userRatings;
+                                                                          });
+                                                                          Navigator.of(context)
+                                                                              .pop();
+                                                                        },
+                                                                        child: Text(
+                                                                          'Submit',
+                                                                          style: Theme.of(context)
+                                                                              .textTheme
+                                                                              .headlineSmall,
+                                                                        )),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            )
+                                                          ]);
+                                                    }));
+                                              },
+                                              child: Text(
+                                                'Rate ${widget.movieName}',
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 14,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              )),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              if (userRatings != null)
+                                Padding(
+                                    padding: EdgeInsets.fromLTRB(0, 0, 0, 50),
+                                    child: Row(
+                                      children: [
+                                        Text(
+                                          'Your ratings',
+                                          style: TextStyle(
+                                              color: Colors.grey,
+                                              fontSize: 15,
+                                              fontStyle: FontStyle.normal,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        Spacer(),
+                                        RatingBarIndicator(
+                                          itemBuilder: (context, _) => Icon(
+                                            Icons.star,
+                                            color: Colors.amber,
+                                          ),
+                                          itemSize: 18,
+                                          rating: userRatings ?? 0,
+                                        ),
+                                        SizedBox(
+                                          width: 3,
+                                        ),
+                                        Text('($userRatings/5)',
+                                            style: TextStyle(
+                                                color: Colors.grey,
+                                                fontSize: 14 ))
+                                      ],
+                                    )),
                             ],
                           ),
                       ],
                     ),
                   ),
-                  SizedBox(
-                    height: 60,
-                  ),
-                  if (userRatings == null)
-                    Center(
-                      child: Flexible(
-                        child: Container(
-                          decoration: BoxDecoration(
-                              color: Colors.blueGrey,
-                              borderRadius: BorderRadius.circular(18)),
-                          child: TextButton(
-                              onPressed: () {
-                                showDialog(
-                                    context: context,
-                                    builder: ((context) {
-                                      return AlertDialog(
-                                        title: Text(
-                                          'Rate ${widget.movieName}',
-                                          textAlign: TextAlign.center,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .titleMedium,
-                                        ),
-                                      );
-                                    }));
-                              },
-                              child: Text(
-                                'Rate ${widget.movieName}',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.bold),
-                              )),
-                        ),
-                      ),
-                    )
                 ],
               ),
             ),
