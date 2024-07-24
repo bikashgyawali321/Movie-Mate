@@ -4,15 +4,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
-class RatingBarDialog extends StatefulWidget {
-  const RatingBarDialog({super.key});
+class RatingDialog extends StatefulWidget {
+  const RatingDialog({super.key});
 
   @override
-  State<RatingBarDialog> createState() => _RatingBarDialogState();
+  State<RatingDialog> createState() => _RatingDialogState();
 }
 
-class _RatingBarDialogState extends State<RatingBarDialog> {
+class _RatingDialogState extends State<RatingDialog> {
   num userRating = 0;
+
   @override
   Widget build(BuildContext context) {
     return AlertDialog(

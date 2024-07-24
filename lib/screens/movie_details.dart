@@ -1,8 +1,11 @@
+// ignore_for_file: prefer_const_constructors, prefer_final_fields, prefer_const_literals_to_create_immutables
+
 import 'package:flutter/material.dart';
 import 'package:movie_mate/models/movie.dart';
 import 'package:provider/provider.dart';
 import '../provider/movies_providers.dart';
 import '../widgets/appbar.dart';
+import '../widgets/rating_bar.dart';
 
 class MovieDetailsScreen extends StatefulWidget {
   final String id;
@@ -21,6 +24,7 @@ class MovieDetailsScreen extends StatefulWidget {
 class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
   Movie? _details;
 
+  num? userRatings;
   @override
   void initState() {
     super.initState();
@@ -279,6 +283,42 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                       ],
                     ),
                   ),
+                  SizedBox(
+                    height: 60,
+                  ),
+                  if (userRatings == null)
+                    Center(
+                      child: Flexible(
+                        child: Container(
+                          decoration: BoxDecoration(
+                              color: Colors.blueGrey,
+                              borderRadius: BorderRadius.circular(18)),
+                          child: TextButton(
+                              onPressed: () {
+                                showDialog(
+                                    context: context,
+                                    builder: ((context) {
+                                      return AlertDialog(
+                                        title: Text(
+                                          'Rate ${widget.movieName}',
+                                          textAlign: TextAlign.center,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleMedium,
+                                        ),
+                                      );
+                                    }));
+                              },
+                              child: Text(
+                                'Rate ${widget.movieName}',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold),
+                              )),
+                        ),
+                      ),
+                    )
                 ],
               ),
             ),
