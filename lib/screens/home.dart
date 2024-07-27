@@ -90,17 +90,21 @@ class HomeScreen extends StatelessWidget {
                                     ),
                                   );
                                 },
-                                child: Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(1, 2, 3, 2),
-                                  child: SizedBox(
-                                    height: 200,
-                                    width: 150,
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(7),
-                                      child: Image.network(
-                                        movie.poster!,
-                                        fit: BoxFit.cover,
+                                child: Hero(
+                                  tag: "movie/${movie.poster}",
+
+                                  child: Padding(
+                                    padding:
+                                        const EdgeInsets.fromLTRB(1, 2, 3, 2),
+                                    child: SizedBox(
+                                      height: 200,
+                                      width: 150,
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(7),
+                                        child: Image.network(
+                                          movie.poster!,
+                                          fit: BoxFit.cover,
+                                        ),
                                       ),
                                     ),
                                   ),

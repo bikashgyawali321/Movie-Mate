@@ -65,11 +65,14 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  AspectRatio(
-                    aspectRatio: 1.1,
-                    child: Image.network(
-                      detail.poster!,
-                      fit: BoxFit.fill,
+                  Hero(
+                    tag: "movie/${detail.poster}",
+                    child: AspectRatio(
+                      aspectRatio: 1.1,
+                      child: Image.network(
+                        detail.poster!,
+                        fit: BoxFit.fill,
+                      ),
                     ),
                   ),
                   const SizedBox(height: 10),
@@ -419,7 +422,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                                         Text('($userRatings/5)',
                                             style: TextStyle(
                                                 color: Colors.grey,
-                                                fontSize: 14 ))
+                                                fontSize: 14))
                                       ],
                                     )),
                             ],
