@@ -66,7 +66,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Hero(
-                    tag: "movie/${detail.poster}",
+                    tag: "movie/${_details!.id}/${_details!.poster}",
                     child: AspectRatio(
                       aspectRatio: 1.1,
                       child: Image.network(

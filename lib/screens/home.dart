@@ -91,7 +91,7 @@ class HomeScreen extends StatelessWidget {
                                   );
                                 },
                                 child: Hero(
-                                  tag: "movie/${movie.poster}",
+                                  tag: "movie/${movie.id}/${movie.poster}",
 
                                   child: Padding(
                                     padding:
