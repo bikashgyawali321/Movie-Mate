@@ -251,17 +251,18 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                               ...detail.ratings!.map((rating) {
                                 return Row(
                                   children: [
-                                    Expanded(
-                                      child: Text(
-                                        rating['Source'] ?? '',
-                                        style: const TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 15,
-                                        ),
+                                    Text(
+                                      " ${rating['Source'] ?? ''}:",
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 15,
                                       ),
                                     ),
+                                    SizedBox(
+                                      width: 5,
+                                    ),
                                     Text(
-                                      rating['Value'] ?? '',
+                                      rating['Value'] ?? 'N/A',
                                       style: const TextStyle(
                                         fontSize: 15,
                                       ),
