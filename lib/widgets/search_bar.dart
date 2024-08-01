@@ -23,15 +23,6 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
           hintText: 'Search....',
           controller: controller,
           onChanged: (value) => context.read<MovieProvider>().getMovies(value),
-          backgroundColor: MaterialStatePropertyAll(
-            Colors.blueGrey.shade300,
-          ),
-          hintStyle: MaterialStateProperty.resolveWith<TextStyle?>(
-            (states) => const TextStyle(color: Colors.white),
-          ),
-          textStyle: MaterialStateProperty.resolveWith<TextStyle?>(
-            (states) => const TextStyle(color: Colors.white),
-          ),
           trailing: [
             Padding(
               padding: const EdgeInsets.only(right: 10.0),
@@ -43,7 +34,6 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
                   controller.clear();
                 },
                 icon: const Icon(Icons.search),
-                color: Colors.white,
               ),
             )
           ],

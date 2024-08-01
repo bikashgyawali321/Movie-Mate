@@ -1,4 +1,9 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../provider/theme_provider.dart';
 
 class AppBarWidget extends StatelessWidget {
   final String title;
@@ -11,15 +16,35 @@ class AppBarWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: const Color.fromARGB(0, 4, 13, 12),
+      backgroundColor: Theme.of(context).brightness == Brightness.dark
+          ? Color.fromARGB(255, 125, 92, 92)
+          : Color.fromARGB(255, 194, 159, 159),
       elevation: 5,
       automaticallyImplyLeading: false,
       centerTitle: true,
-      titleTextStyle: TextStyle(color: Colors.blueGrey.shade200),
       title: Text(
         title,
-        style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+        style: TextStyle(
+          fontSize: 28,
+          fontWeight: FontWeight.bold,
+        ),
       ),
+      actions: [
+        IconButton(
+          onPressed: () {
+            Provider.of<ThemeProvider>(context, listen: false).toggleTheme();
+          },
+          icon: Icon(
+            Theme.of(context).brightness == Brightness.dark
+                ? Icons.sunny
+                : Icons.dark_mode,
+            color: Theme.of(context).brightness == Brightness.dark
+                ? Colors.white
+                : Colors.black,
+          ),
+          iconSize: 30,
+        ),
+      ],
     );
   }
 }

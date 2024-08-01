@@ -8,20 +8,10 @@ class ThemeProvider extends ChangeNotifier {
 
   ThemeData get getTheme => _themeData;
 
-  void setDarkMode() {
-    _themeData = ThemeData.dark();
-    notifyListeners();
-  }
-
-  void setLightMode() {
-    _themeData = ThemeData.light();
-    notifyListeners();
-  }
-
   void toggleTheme() {
     _themeData = (_themeData.brightness == Brightness.dark)
         ? ThemeData.light()
-        : ThemeData.light();
+        : ThemeData.dark();
     notifyListeners();
   }
 }

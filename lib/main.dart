@@ -2,12 +2,12 @@
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:movie_mate/provider/theme_provider.dart';
 
 import 'package:provider/provider.dart';
 import 'package:movie_mate/screens/register.dart';
 import 'provider/movies_providers.dart';
 import 'screens/home.dart';
-import 'screens/splash.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,19 +27,25 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: [ChangeNotifierProvider(create: (_) => MovieProvider())],
-      child: MaterialApp(
-        theme: ThemeData.dark().copyWith(
-          primaryColor: const Color.fromARGB(133, 154, 139, 141),
-        ),
-        initialRoute: '/',
-        routes: {
-          '/': (context) => const HomeScreen(),
-          // '/home': (context) => const HomeScreen(),
-          '/register': (context) => const Register()
-        },
-        title: 'Movie Magic',
-      ),
-    );
+        providers: [
+          ChangeNotifierProvider(create: (_) => MovieProvider()),
+          ChangeNotifierProvider(
+              create: (_) => ThemeProvider(ThemeData.light()))
+        ],
+        child: Consumer<ThemeProvider>(
+          builder: (context, themeProvider, child) {
+            return MaterialApp(
+              debugShowCheckedModeBanner: false,
+              theme: themeProvider.getTheme,
+              initialRoute: '/',
+              routes: {
+                '/': (context) => const HomeScreen(),
+                // '/home': (context) => const HomeScreen(),
+                '/register': (context) => const Register()
+              },
+              title: 'Movie Magic',
+            );
+          },
+        ));
   }
 }

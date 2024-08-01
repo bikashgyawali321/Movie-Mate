@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, prefer_const_constructors
 
 import 'package:flutter/material.dart';
 import 'package:movie_mate/provider/movies_providers.dart';
@@ -14,7 +14,6 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('Building home screen');
     Provider.of<MovieProvider>(context, listen: false).movie;
 
     return Scaffold(
@@ -90,21 +89,17 @@ class HomeScreen extends StatelessWidget {
                                     ),
                                   );
                                 },
-                                child: Hero(
-                                  tag: "movie/${movie.id}/${movie.poster}",
-
-                                  child: Padding(
-                                    padding:
-                                        const EdgeInsets.fromLTRB(1, 2, 3, 2),
-                                    child: SizedBox(
-                                      height: 200,
-                                      width: 150,
-                                      child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(7),
-                                        child: Image.network(
-                                          movie.poster!,
-                                          fit: BoxFit.cover,
-                                        ),
+                                child: Padding(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(1, 2, 3, 2),
+                                  child: SizedBox(
+                                    height: 200,
+                                    width: 150,
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(7),
+                                      child: Image.network(
+                                        movie.poster!,
+                                        fit: BoxFit.cover,
                                       ),
                                     ),
                                   ),
@@ -121,8 +116,8 @@ class HomeScreen extends StatelessWidget {
                       child: Text(
                         'No data available',
                         style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.grey.shade200),
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                 ],
@@ -130,7 +125,8 @@ class HomeScreen extends StatelessWidget {
             ),
           );
         },
-      ),
+      ), 
+
     );
   }
 }

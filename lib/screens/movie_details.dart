@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_final_fields, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
+
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:movie_mate/models/movie.dart';
 import 'package:provider/provider.dart';
@@ -49,24 +50,24 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
           title: widget.movieName.toUpperCase(),
         ),
       ),
-      body: Consumer<MovieProvider>(
-        builder: (context, movieProvider, child) {
-          final detail = _details;
+      body: SingleChildScrollView(
+        child: Consumer<MovieProvider>(
+          builder: (context, movieProvider, child) {
+            final detail = _details;
 
-          if (detail == null) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
+            if (detail == null) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
 
-          return SingleChildScrollView(
-            child: Padding(
+            return Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Hero(
-                    tag: "movie/${_details!.id}/${_details!.poster}",
+                    tag: "movieTag",
                     child: AspectRatio(
                       aspectRatio: 1.1,
                       child: Image.network(
@@ -79,7 +80,9 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                   Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(6),
-                      color: Colors.black12,
+                      color: Theme.of(context).brightness == Brightness.light
+                          ? Colors.white
+                          : Colors.black12,
                     ),
                     padding: const EdgeInsets.all(8.0),
                     child: Column(
@@ -89,7 +92,6 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                           detail.plot!,
                           textAlign: TextAlign.justify,
                           style: const TextStyle(
-                            color: Colors.yellow,
                             fontSize: 13,
                             fontStyle: FontStyle.italic,
                           ),
@@ -100,146 +102,140 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                             const Text(
                               'Duration:',
                               style: TextStyle(
-                                color: Colors.grey,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 16,
                               ),
                             ),
-                            const SizedBox(width: 2),
+                            SizedBox(width: 5),
                             Text(
                               detail.runtime!,
                               style: const TextStyle(
-                                color: Colors.grey,
-                                fontStyle: FontStyle.normal,
-                                fontSize: 15,
-                              ),
-                            ),
-                            const Spacer(),
-                            const Text(
-                              'Genre:',
-                              style: TextStyle(
-                                color: Colors.grey,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16,
-                              ),
-                            ),
-                            const SizedBox(width: 2),
-                            Text(
-                              detail.genre!,
-                              style: const TextStyle(
-                                color: Colors.grey,
                                 fontStyle: FontStyle.normal,
                                 fontSize: 15,
                               ),
                             ),
                           ],
                         ),
-                        const SizedBox(height: 10),
+                        Row(
+                          children: [
+                            const Text(
+                              'Genre:',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                              ),
+                            ),
+                            SizedBox(width: 5),
+                            Text(
+                              detail.genre!,
+                              style: const TextStyle(
+                                fontStyle: FontStyle.normal,
+                                fontSize: 15,
+                              ),
+                            ),
+                          ],
+                        ),
                         Row(
                           children: [
                             const Text(
                               'Production:',
                               style: TextStyle(
-                                color: Colors.grey,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 16,
                               ),
                             ),
-                            const SizedBox(width: 2),
+                            SizedBox(width: 5),
                             Text(
                               detail.production!,
                               style: const TextStyle(
-                                color: Colors.grey,
                                 fontStyle: FontStyle.normal,
                                 fontSize: 15,
                               ),
                             ),
-                            const SizedBox(width: 17),
-                            const Spacer(),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            const Text(
+                              'Released Date:',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                              ),
+                            ),
+                            SizedBox(width: 5),
+                            Text(
+                              detail.released!,
+                              style: const TextStyle(
+                                fontStyle: FontStyle.normal,
+                                fontSize: 15,
+                              ),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
                             const Text(
                               'Meta Score:',
                               style: TextStyle(
-                                color: Colors.grey,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 16,
                               ),
                             ),
-                            const SizedBox(width: 2),
+                            SizedBox(width: 5),
                             Text(
                               detail.metascore!,
                               style: const TextStyle(
-                                color: Colors.grey,
                                 fontStyle: FontStyle.normal,
                                 fontSize: 15,
                               ),
                             ),
                           ],
                         ),
-                        Row(
-                          children: [
-                            const Text(
-                              'Director:',
-                              style: TextStyle(
-                                color: Colors.grey,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16,
+                        SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            children: [
+                              const Text(
+                                'Director:',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                ),
                               ),
-                            ),
-                            const SizedBox(width: 2),
-                            Expanded(
-                              child: Text(
+                              SizedBox(width: 5),
+                              Text(
                                 detail.director!,
                                 style: const TextStyle(
-                                  color: Colors.grey,
                                   fontStyle: FontStyle.normal,
                                   fontSize: 15,
                                 ),
                               ),
-                            ),
-                            const Spacer(),
-                            const Text(
-                              'Released Year:',
-                              style: TextStyle(
-                                color: Colors.grey,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16,
-                              ),
-                            ),
-                            const SizedBox(width: 2),
-                            Text(
-                              detail.year,
-                              style: const TextStyle(
-                                color: Colors.grey,
-                                fontStyle: FontStyle.normal,
-                                fontSize: 15,
-                              ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                        Row(
-                          children: [
-                            const Text(
-                              'Cast:',
-                              style: TextStyle(
-                                color: Colors.grey,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16,
+                        SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            children: [
+                              Text(
+                                'Cast:',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                ),
                               ),
-                            ),
-                            const SizedBox(width: 2),
-                            Expanded(
-                              child: Text(
+                              SizedBox(width: 5),
+                              Text(
                                 detail.actors!,
                                 style: const TextStyle(
-                                  color: Colors.grey,
                                   fontStyle: FontStyle.normal,
                                   fontSize: 15,
                                 ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                        const SizedBox(height: 10),
                         if (detail.ratings != null &&
                             detail.ratings!.isNotEmpty)
                           Column(
@@ -248,37 +244,29 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                               const Text(
                                 'Ratings:',
                                 style: TextStyle(
-                                  color: Colors.grey,
                                   fontWeight: FontWeight.bold,
                                   fontSize: 16,
                                 ),
                               ),
-                              const SizedBox(height: 5),
                               ...detail.ratings!.map((rating) {
-                                return Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(vertical: 4.0),
-                                  child: Row(
-                                    children: [
-                                      Expanded(
-                                        child: Text(
-                                          rating['Source'] ?? '',
-                                          style: const TextStyle(
-                                            color: Colors.grey,
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 15,
-                                          ),
-                                        ),
-                                      ),
-                                      Text(
-                                        rating['Value'] ?? '',
+                                return Row(
+                                  children: [
+                                    Expanded(
+                                      child: Text(
+                                        rating['Source'] ?? '',
                                         style: const TextStyle(
-                                          color: Colors.grey,
+                                          fontWeight: FontWeight.bold,
                                           fontSize: 15,
                                         ),
                                       ),
-                                    ],
-                                  ),
+                                    ),
+                                    Text(
+                                      rating['Value'] ?? '',
+                                      style: const TextStyle(
+                                        fontSize: 15,
+                                      ),
+                                    ),
+                                  ],
                                 );
                               }),
                               if (userRatings == null)
@@ -288,108 +276,105 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                                       height: 40,
                                     ),
                                     Center(
-                                      child: Flexible(
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                              color: Colors.blueGrey,
-                                              borderRadius:
-                                                  BorderRadius.circular(18)),
-                                          child: TextButton(
-                                              onPressed: () {
-                                                showDialog(
-                                                    context: context,
-                                                    builder: ((context) {
-                                                      return AlertDialog(
-                                                          title: Text(
-                                                            'Rate ${widget.movieName}',
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                            style: Theme.of(
-                                                                    context)
-                                                                .textTheme
-                                                                .titleLarge,
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                            color: Colors.blueGrey,
+                                            borderRadius:
+                                                BorderRadius.circular(18)),
+                                        child: TextButton(
+                                            onPressed: () {
+                                              showDialog(
+                                                  context: context,
+                                                  builder: ((context) {
+                                                    return AlertDialog(
+                                                        title: Text(
+                                                          'Rate ${widget.movieName}',
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                          style:
+                                                              Theme.of(context)
+                                                                  .textTheme
+                                                                  .titleLarge,
+                                                        ),
+                                                        actions: <Widget>[
+                                                          Center(
+                                                            child: Text(
+                                                              "Please leave star ratings",
+                                                              style: Theme.of(
+                                                                      context)
+                                                                  .textTheme
+                                                                  .bodyMedium,
+                                                            ),
                                                           ),
-                                                          actions: <Widget>[
-                                                            Center(
-                                                              child: Text(
-                                                                "Please leave star ratings",
-                                                                style: Theme.of(
-                                                                        context)
-                                                                    .textTheme
-                                                                    .bodyMedium,
-                                                              ),
-                                                            ),
-                                                            SizedBox(
-                                                              height: 20,
-                                                            ),
-                                                            Center(
-                                                              child: Column(
-                                                                children: [
-                                                                  RatingBar.builder(
-                                                                      initialRating:
-                                                                          0,
-                                                                      direction:
-                                                                          Axis
-                                                                              .horizontal,
-                                                                      allowHalfRating:
-                                                                          true,
-                                                                      itemCount:
-                                                                          5,
-                                                                      itemBuilder: (context, _) => Icon(
-                                                                          Icons
-                                                                              .star,
-                                                                          color: Colors
-                                                                              .amber),
-                                                                      onRatingUpdate:
-                                                                          (rating) =>
-                                                                              userRatings = rating
-                                                                      //     setState(() {
-                                                                      //   userRatings = rating;
-                                                                      // }),
-                                                                      ),
-                                                                  SizedBox(
-                                                                    height: 20,
-                                                                  ),
-                                                                  Container(
-                                                                    decoration:
-                                                                        BoxDecoration(
-                                                                      color: Colors
-                                                                          .blueGrey,
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(
-                                                                              18),
+                                                          SizedBox(
+                                                            height: 20,
+                                                          ),
+                                                          Center(
+                                                            child: Column(
+                                                              children: [
+                                                                RatingBar.builder(
+                                                                    initialRating:
+                                                                        0,
+                                                                    direction: Axis
+                                                                        .horizontal,
+                                                                    allowHalfRating:
+                                                                        true,
+                                                                    itemCount:
+                                                                        5,
+                                                                    itemBuilder: (context, _) => Icon(
+                                                                        Icons
+                                                                            .star,
+                                                                        color: Colors
+                                                                            .amber),
+                                                                    onRatingUpdate:
+                                                                        (rating) =>
+                                                                            userRatings =
+                                                                                rating
+                                                                    //     setState(() {
+                                                                    //   userRatings = rating;
+                                                                    // }),
                                                                     ),
-                                                                    child: TextButton(
-                                                                        onPressed: () {
-                                                                          setState(
-                                                                              () {
-                                                                            userRatings;
-                                                                          });
-                                                                          Navigator.of(context)
-                                                                              .pop();
-                                                                        },
-                                                                        child: Text(
-                                                                          'Submit',
-                                                                          style: Theme.of(context)
-                                                                              .textTheme
-                                                                              .headlineSmall,
-                                                                        )),
+                                                                SizedBox(
+                                                                  height: 20,
+                                                                ),
+                                                                Container(
+                                                                  decoration:
+                                                                      BoxDecoration(
+                                                                    color: Colors
+                                                                        .blueGrey,
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
+                                                                            18),
                                                                   ),
-                                                                ],
-                                                              ),
-                                                            )
-                                                          ]);
-                                                    }));
-                                              },
-                                              child: Text(
-                                                'Rate ${widget.movieName}',
-                                                style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 14,
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              )),
-                                        ),
+                                                                  child:
+                                                                      TextButton(
+                                                                          onPressed:
+                                                                              () {
+                                                                            setState(() {
+                                                                              userRatings;
+                                                                            });
+                                                                            Navigator.of(context).pop();
+                                                                          },
+                                                                          child:
+                                                                              Text(
+                                                                            'Submit',
+                                                                            style:
+                                                                                Theme.of(context).textTheme.headlineSmall,
+                                                                          )),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          )
+                                                        ]);
+                                                  }));
+                                            },
+                                            child: Text(
+                                              'Rate ${widget.movieName}',
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.bold),
+                                            )),
                                       ),
                                     ),
                                   ],
@@ -402,7 +387,6 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                                         Text(
                                           'Your ratings',
                                           style: TextStyle(
-                                              color: Colors.grey,
                                               fontSize: 15,
                                               fontStyle: FontStyle.normal,
                                               fontWeight: FontWeight.bold),
@@ -420,9 +404,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                                           width: 3,
                                         ),
                                         Text('($userRatings/5)',
-                                            style: TextStyle(
-                                                color: Colors.grey,
-                                                fontSize: 14))
+                                            style: TextStyle(fontSize: 14))
                                       ],
                                     )),
                             ],
@@ -432,9 +414,9 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                   ),
                 ],
               ),
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
     );
   }
