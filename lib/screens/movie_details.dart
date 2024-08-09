@@ -62,7 +62,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
             }
 
             return Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(2),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -330,11 +330,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                                                                     onRatingUpdate:
                                                                         (rating) =>
                                                                             userRatings =
-                                                                                rating
-                                                                    //     setState(() {
-                                                                    //   userRatings = rating;
-                                                                    // }),
-                                                                    ),
+                                                                                rating),
                                                                 SizedBox(
                                                                   height: 20,
                                                                 ),
@@ -383,29 +379,135 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                               if (userRatings != null)
                                 Padding(
                                     padding: EdgeInsets.fromLTRB(0, 0, 0, 50),
-                                    child: Row(
+                                    child: Column(
                                       children: [
-                                        Text(
-                                          'Your ratings',
-                                          style: TextStyle(
-                                              fontSize: 15,
-                                              fontStyle: FontStyle.normal,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                        Spacer(),
-                                        RatingBarIndicator(
-                                          itemBuilder: (context, _) => Icon(
-                                            Icons.star,
-                                            color: Colors.amber,
-                                          ),
-                                          itemSize: 18,
-                                          rating: userRatings ?? 0,
+                                        Row(
+                                          children: [
+                                            Text(
+                                              'Your ratings',
+                                              style: TextStyle(
+                                                  fontSize: 15,
+                                                  fontStyle: FontStyle.normal,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                            Spacer(),
+                                            RatingBarIndicator(
+                                              itemBuilder: (context, _) => Icon(
+                                                Icons.star,
+                                                color: Colors.amber,
+                                              ),
+                                              itemSize: 18,
+                                              rating: userRatings ?? 0,
+                                            ),
+                                            SizedBox(
+                                              width: 3,
+                                            ),
+                                            Text('($userRatings/5)',
+                                                style: TextStyle(fontSize: 14))
+                                          ],
                                         ),
                                         SizedBox(
-                                          width: 3,
+                                          height: 20,
                                         ),
-                                        Text('($userRatings/5)',
-                                            style: TextStyle(fontSize: 14))
+                                        Container(
+                                          height: 40,
+                                          decoration: BoxDecoration(
+                                            color: Colors.blueGrey,
+                                            borderRadius:
+                                                BorderRadius.circular(18),
+                                          ),
+                                          child: TextButton(
+                                              onPressed: () {
+                                                showDialog(
+                                                    context: context,
+                                                    builder: ((context) {
+                                                      return AlertDialog(
+                                                          title: Text(
+                                                            'Rate ${widget.movieName}',
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: Theme.of(
+                                                                    context)
+                                                                .textTheme
+                                                                .titleLarge,
+                                                          ),
+                                                          actions: <Widget>[
+                                                            Center(
+                                                              child: Text(
+                                                                "Please leave star ratings",
+                                                                style: Theme.of(
+                                                                        context)
+                                                                    .textTheme
+                                                                    .bodyMedium,
+                                                              ),
+                                                            ),
+                                                            SizedBox(
+                                                              height: 20,
+                                                            ),
+                                                            Center(
+                                                              child: Column(
+                                                                children: [
+                                                                  RatingBar.builder(
+                                                                      initialRating:
+                                                                          userRatings ??
+                                                                              0,
+                                                                      direction:
+                                                                          Axis
+                                                                              .horizontal,
+                                                                      allowHalfRating:
+                                                                          true,
+                                                                      itemCount:
+                                                                          5,
+                                                                      itemBuilder: (context, _) => Icon(
+                                                                          Icons
+                                                                              .star,
+                                                                          color: Colors
+                                                                              .amber),
+                                                                      onRatingUpdate:
+                                                                          (rating) =>
+                                                                              userRatings = rating),
+                                                                  SizedBox(
+                                                                    height: 20,
+                                                                  ),
+                                                                  Container(
+                                                                    decoration:
+                                                                        BoxDecoration(
+                                                                      color: Colors
+                                                                          .blueGrey,
+                                                                      borderRadius:
+                                                                          BorderRadius.circular(
+                                                                              18),
+                                                                    ),
+                                                                    child: TextButton(
+                                                                        onPressed: () {
+                                                                          setState(
+                                                                              () {
+                                                                            userRatings;
+                                                                          });
+                                                                          Navigator.of(context)
+                                                                              .pop();
+                                                                        },
+                                                                        child: Text(
+                                                                          'Submit',
+                                                                          style: Theme.of(context)
+                                                                              .textTheme
+                                                                              .headlineSmall,
+                                                                        )),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            )
+                                                          ]);
+                                                    }));
+                                              },
+                                              child: Text(
+                                                'Change Rating',
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .titleMedium,
+                                              )),
+                                         
+                                        ),
                                       ],
                                     )),
                             ],
