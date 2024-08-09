@@ -3,7 +3,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:movie_mate/provider/theme_provider.dart';
-
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:movie_mate/screens/register.dart';
 import 'provider/movies_providers.dart';
@@ -11,6 +11,7 @@ import 'screens/home.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Hive.initFlutter();
   await Firebase.initializeApp(
     options: FirebaseOptions(
         apiKey: "AIzaSyCxX1mEga1xP8X42Y7HbUb4QKbpsWrWlwA",

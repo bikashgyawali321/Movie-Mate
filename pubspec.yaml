@@ -46,6 +46,8 @@ dependencies:
   flutter_facebook_auth: ^6.2.0
   cloud_firestore: ^4.17.3
   flutter_rating_bar: ^4.0.1
+  hive_flutter: ^1.1.0
+  
  
 
 dev_dependencies:
@@ -76,6 +78,8 @@ flutter:
     - android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png
     - android/app/src/assets/google.png
     - android/app/src/assets/facebook.png
+    
+
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
