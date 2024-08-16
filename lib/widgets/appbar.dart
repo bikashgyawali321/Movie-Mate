@@ -1,8 +1,5 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import '../provider/theme_provider.dart';
 
 class AppBarWidget extends StatelessWidget {
@@ -15,16 +12,13 @@ class AppBarWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context, listen: true);
     return AppBar(
-      backgroundColor: Theme.of(context).brightness == Brightness.dark
-          ? Color.fromARGB(255, 125, 92, 92)
-          : Color.fromARGB(255, 194, 159, 159),
       elevation: 5,
       automaticallyImplyLeading: false,
-      centerTitle: true,
       title: Text(
         title,
-        style: TextStyle(
+        style: const TextStyle(
           fontSize: 28,
           fontWeight: FontWeight.bold,
         ),
@@ -32,19 +26,48 @@ class AppBarWidget extends StatelessWidget {
       actions: [
         IconButton(
           onPressed: () {
-            Provider.of<ThemeProvider>(context, listen: false).toggleTheme();
+            showMenu(
+                context: context,
+                position: RelativeRect.fromLTRB(
+                    MediaQuery.of(context).size.width * 0.8, 30, 10, 0),
+                items: [
+                  _buildPopUpMenuItem(context, themeProvider,
+                      Icons.brightness_auto, 'System', ThemeMode.system),
+                  _buildPopUpMenuItem(context, themeProvider, Icons.light_mode,
+                      'Light', ThemeMode.light),
+                  _buildPopUpMenuItem(context, themeProvider, Icons.dark_mode,
+                      'Dark', ThemeMode.dark)
+                ]);
           },
-          icon: Icon(
-            Theme.of(context).brightness == Brightness.dark
-                ? Icons.sunny
-                : Icons.dark_mode,
-            color: Theme.of(context).brightness == Brightness.dark
-                ? Colors.white
-                : Colors.black,
-          ),
+          icon: Icon(themeProvider.themeMode == ThemeMode.dark
+              ? Icons.dark_mode
+              : themeProvider.themeMode == ThemeMode.light
+                  ? Icons.light_mode
+                  : Icons.brightness_auto),
           iconSize: 30,
         ),
       ],
     );
+  }
+
+  PopupMenuItem<ThemeMode> _buildPopUpMenuItem(
+      BuildContext context,
+      ThemeProvider themeProvider,
+      IconData icon,
+      String title,
+      ThemeMode value) {
+    return PopupMenuItem(
+        value: value,
+        child: ListTile(
+          contentPadding: EdgeInsets.zero,
+          leading: Icon(icon),
+          title: Text(title),
+          trailing:
+              themeProvider.themeMode == value ? const Icon(Icons.check) : null,
+          onTap: () {
+            themeProvider.setTheme(value);
+            Navigator.pop(context);
+          },
+        ));
   }
 }

@@ -281,7 +281,6 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                               Center(
                                 child: Container(
                                   decoration: BoxDecoration(
-                                      color: Colors.blueGrey,
                                       borderRadius: BorderRadius.circular(18)),
                                   child: TextButton(
                                       onPressed: () {
