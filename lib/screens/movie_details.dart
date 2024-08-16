@@ -71,7 +71,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                     child: AspectRatio(
                       aspectRatio: 1.1,
                       child: Image.network(
-                        detail.poster!,
+                        detail.poster ?? '',
                         fit: BoxFit.fill,
                       ),
                     ),
@@ -146,7 +146,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                             ),
                             SizedBox(width: 5),
                             Text(
-                              detail.production!,
+                              detail.production ?? 'N/A',
                               style: const TextStyle(
                                 fontStyle: FontStyle.normal,
                                 fontSize: 15,
