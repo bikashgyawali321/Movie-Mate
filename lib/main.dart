@@ -1,7 +1,6 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:movie_mate/provider/rating_provider.dart';
 import 'package:movie_mate/provider/theme_provider.dart';
 import 'package:provider/provider.dart';
 import 'provider/movies_providers.dart';
@@ -13,15 +12,15 @@ void main() async {
   await Hive.initFlutter();
   await Hive.openBox('Settings');
   await Hive.openBox('UserData');
-  await dotenv.load();
+  // await dotenv.load();
 
-  await Firebase.initializeApp(
-    options: FirebaseOptions(
-        apiKey: dotenv.env['FIREBASE_API_KEY'] ?? '',
-        appId: dotenv.env['FIREBASE_APP_ID'] ?? '',
-        messagingSenderId: dotenv.env['FIREBASE_MESSAGING_SENDER_ID'] ?? '',
-        projectId: dotenv.env['FIREBASE_PROJECT_ID'] ?? ''),
-  );
+  // await Firebase.initializeApp(
+  //   options: FirebaseOptions(
+  //       apiKey: dotenv.env['FIREBASE_API_KEY'] ?? '',
+  //       appId: dotenv.env['FIREBASE_APP_ID'] ?? '',
+  //       messagingSenderId: dotenv.env['FIREBASE_MESSAGING_SENDER_ID'] ?? '',
+  //       projectId: dotenv.env['FIREBASE_PROJECT_ID'] ?? ''),
+  // );
   runApp(const ProviderWrappedApp());
 }
 
@@ -33,7 +32,8 @@ class ProviderWrappedApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => MovieProvider()),
-        ChangeNotifierProvider(create: (_) => ThemeProvider())
+        ChangeNotifierProvider(create: (_) => ThemeProvider()),
+        ChangeNotifierProvider(create: (_) => RatingProvider())
       ],
       child: const MyApp(),
     );

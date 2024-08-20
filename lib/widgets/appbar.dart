@@ -23,6 +23,7 @@ class AppBarWidget extends StatelessWidget {
           fontWeight: FontWeight.bold,
         ),
       ),
+      centerTitle: true,
       actions: [
         IconButton(
           onPressed: () {

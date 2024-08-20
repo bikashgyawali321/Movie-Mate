@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:movie_mate/models/movie.dart';
+import 'package:movie_mate/provider/rating_provider.dart';
 import 'package:provider/provider.dart';
 import '../provider/movies_providers.dart';
 import '../widgets/appbar.dart';
@@ -34,9 +35,11 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
 
   void loadMovieDetail() {
     final movieProvider = Provider.of<MovieProvider>(context, listen: false);
+    final ratingProvider = Provider.of<RatingProvider>(context, listen: false);
     movieProvider.getMovieDetail(widget.id).then((value) {
       setState(() {
         _details = value;
+        userRatings = ratingProvider.getUserRating(widget.id);
       });
     });
   }
@@ -51,8 +54,8 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
         ),
       ),
       body: SingleChildScrollView(
-        child: Consumer<MovieProvider>(
-          builder: (context, movieProvider, child) {
+        child: Consumer2<MovieProvider, RatingProvider>(
+          builder: (context, movieProvider, ratingProvider, child) {
             final detail = _details;
 
             if (detail == null) {
@@ -344,7 +347,11 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                                                             child: TextButton(
                                                                 onPressed: () {
                                                                   setState(() {
-                                                                    userRatings;
+                                                                    ratingProvider.addUserRating(
+                                                                        widget
+                                                                            .id,
+                                                                        userRatings ??
+                                                                            0);
                                                                   });
                                                                   Navigator.of(
                                                                           context)
