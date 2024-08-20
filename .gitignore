@@ -42,7 +42,4 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 
-
-//main for firebase
-lib/main.dart
 .env

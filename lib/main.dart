@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:movie_mate/provider/theme_provider.dart';
 import 'package:provider/provider.dart';
 import 'provider/movies_providers.dart';
@@ -8,13 +9,14 @@ import 'screens/register.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await dotenv.load();
 
   await Firebase.initializeApp(
-    options: const FirebaseOptions(
-        apiKey: "AIzaSyCxX1mEga1xP8X42Y7HbUb4QKbpsWrWlwA",
-        appId: "1:1023621824474:android:a89dbd66e9d4684b7f0ae3",
-        messagingSenderId: "538655914734",
-        projectId: "movie-mate-2d33d"),
+    options: FirebaseOptions(
+        apiKey: dotenv.env['FIREBASE_API_KEY'] ?? '',
+        appId: dotenv.env['FIREBASE_APP_ID'] ?? '',
+        messagingSenderId: dotenv.env['FIREBASE_MESSAGING_SENDER_ID'] ?? '',
+        projectId: dotenv.env['FIREBASE_PROJECT_ID'] ?? ''),
   );
   runApp(const ProviderWrappedApp());
 }
