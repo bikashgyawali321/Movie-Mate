@@ -8,7 +8,7 @@ class ThemeProvider extends ChangeNotifier {
   ThemeProvider() {
     _loadThemeMode();
   }
-void _loadThemeMode() async {
+  void _loadThemeMode() async {
     notifyListeners();
     final box = await Hive.openBox('Settings');
     final themeIndex =
@@ -24,5 +24,4 @@ void _loadThemeMode() async {
 
     notifyListeners();
   }
-
-  
+}
